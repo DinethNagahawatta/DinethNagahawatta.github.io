@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dineth Nagahawatta, PhD — Biochemistry & Molecular Biology</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #FAF8F4;
+    --parchment: #F0EBE1;
+    --ink: #2C2C2C;
+    --ink-light: #5A5A5A;
+    --ink-faint: #8A8A82;
+    --accent: #3B6B4E;
+    --accent-light: #5A8F6E;
+    --accent-bg: #EEF4F0;
+    --rule: #D4CDBE;
+    --rule-dark: #B0A890;
+    --warm-shadow: rgba(60, 50, 30, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', 'Georgia', serif;
+    background: var(--ivory);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  /* === NAV === */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(250, 248, 244, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    transition: box-shadow 0.3s ease;
+  }
+  nav.scrolled { box-shadow: 0 2px 20px var(--warm-shadow); }
+  .nav-inner {
+    max-width: 960px; margin: 0 auto; padding: 0.8rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.25rem;
+    font-weight: 600; color: var(--ink); letter-spacing: 0.02em; text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--ink-light); font-size: 0.85rem;
+    font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    transition: color 0.2s; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1.5px; background: var(--accent); transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* === HERO === */
+  .hero {
+    padding: 10rem 2rem 5rem; max-width: 960px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 280px; gap: 4rem; align-items: end;
+    opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+  .hero-text h1 {
+    font-family: 'Cormorant Garamond', serif; font-size: 3.2rem;
+    font-weight: 500; line-height: 1.15; color: var(--ink); margin-bottom: 0.3rem;
+  }
+  .hero-text .field {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.25rem;
+    font-style: italic; color: var(--accent); margin-bottom: 1.5rem; font-weight: 400;
+  }
+  .hero-text .affiliation {
+    font-size: 0.95rem; color: var(--ink-light); margin-bottom: 1.8rem; line-height: 1.6;
+  }
+  .hero-text .tagline {
+    font-size: 1.02rem; color: var(--ink-faint); line-height: 1.8;
+    border-left: 2px solid var(--rule-dark); padding-left: 1.2rem;
+  }
+  .hero-photo {
+    width: 280px; height: 340px; background: var(--parchment);
+    border: 1px solid var(--rule); display: flex; align-items: center;
+    justify-content: center; position: relative; overflow: hidden;
+  }
+  .hero-photo .placeholder-icon {
+    width: 80px; height: 80px; border-radius: 50%; background: var(--rule);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-photo .placeholder-icon svg { opacity: 0.4; }
+  .hero-photo::after {
+    content: ''; position: absolute; top: 8px; left: 8px;
+    right: -8px; bottom: -8px; border: 1px solid var(--rule-dark); z-index: -1;
+  }
+
+  /* === METRICS BAR === */
+  .metrics-bar {
+    max-width: 960px; margin: 0 auto; padding: 0 2rem;
+    opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+  .metrics-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    background: white; border: 1px solid var(--rule); padding: 1.5rem 2.5rem;
+  }
+  .metric { text-align: center; }
+  .metric .number {
+    font-family: 'Cormorant Garamond', serif; font-size: 2rem;
+    font-weight: 700; color: var(--accent); line-height: 1;
+  }
+  .metric .label {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-faint); margin-top: 0.3rem; font-weight: 500;
+  }
+  .metric-divider { width: 1px; height: 40px; background: var(--rule); }
+
+  /* === SECTIONS === */
+  section { max-width: 960px; margin: 0 auto; padding: 4rem 2rem; }
+  .section-header {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.6s ease forwards;
+  }
+  .section-header h2 {
+    font-family: 'Cormorant Garamond', serif; font-size: 2rem;
+    font-weight: 600; color: var(--ink); white-space: nowrap;
+  }
+  .section-header .line { flex: 1; height: 1px; background: var(--rule); }
+  .section-header .numeral {
+    font-family: 'Cormorant Garamond', serif; font-size: 0.9rem;
+    color: var(--ink-faint); font-style: italic;
+  }
+  .divider { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+  .divider hr { border: none; border-top: 1px solid var(--rule); }
+
+  /* === ABOUT === */
+  .about-content { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; }
+  .about-bio p { margin-bottom: 1.2rem; color: var(--ink-light); font-size: 1rem; }
+  .about-bio p:first-child::first-letter {
+    font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; float: left;
+    line-height: 1; margin-right: 0.5rem; margin-top: 0.1rem;
+    color: var(--accent); font-weight: 600;
+  }
+  .about-sidebar h3 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--ink);
+    margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem;
+  }
+  .about-sidebar ul { list-style: none; margin-bottom: 1.8rem; }
+  .about-sidebar li {
+    font-size: 0.92rem; color: var(--ink-light); padding: 0.25rem 0;
+    padding-left: 1rem; position: relative;
+  }
+  .about-sidebar li::before { content: '–'; position: absolute; left: 0; color: var(--accent); }
+
+  /* === PUBLICATIONS === */
+  .pub-list { list-style: none; }
+  .pub-item {
+    padding: 1.5rem 0; border-bottom: 1px solid var(--rule);
+    display: grid; grid-template-columns: 60px 1fr; gap: 1.5rem; transition: background 0.2s;
+  }
+  .pub-item:hover { background: var(--accent-bg); margin: 0 -1rem; padding: 1.5rem 1rem; }
+  .pub-year {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+    color: var(--ink-faint); font-style: italic; padding-top: 0.15rem;
+  }
+  .pub-details h4 {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;
+    font-weight: 600; color: var(--ink); margin-bottom: 0.3rem; line-height: 1.4;
+  }
+  .pub-authors { font-size: 0.88rem; color: var(--ink-light); margin-bottom: 0.25rem; }
+  .pub-authors strong { font-weight: 600; color: var(--ink); }
+  .pub-journal { font-size: 0.88rem; color: var(--accent); font-style: italic; }
+  .pub-tags { display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
+  .pub-tag {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 0.2rem 0.6rem; border: 1px solid var(--rule); color: var(--ink-faint); font-weight: 500;
+  }
+  .pub-note {
+    text-align: center; padding: 2rem 0 0; font-size: 0.95rem; color: var(--ink-faint);
+    font-style: italic;
+  }
+  .pub-note a { color: var(--accent); text-decoration: none; }
+  .pub-note a:hover { text-decoration: underline; }
+
+  /* === RESEARCH === */
+  .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .research-card {
+    background: white; border: 1px solid var(--rule); padding: 2rem;
+    position: relative; transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .research-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px var(--warm-shadow); }
+  .research-card .status {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+    font-weight: 600; margin-bottom: 0.8rem; display: inline-block; padding: 0.15rem 0.5rem;
+  }
+  .status.active { background: var(--accent-bg); color: var(--accent); }
+  .status.completed { background: var(--parchment); color: var(--ink-faint); }
+  .research-card h4 {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.3rem;
+    font-weight: 600; margin-bottom: 0.6rem; line-height: 1.35;
+  }
+  .research-card p { font-size: 0.92rem; color: var(--ink-light); line-height: 1.7; margin-bottom: 1rem; }
+  .research-card .funding { font-size: 0.8rem; color: var(--ink-faint); font-style: italic; }
+  .research-card .corner-ornament {
+    position: absolute; top: 0; right: 0; width: 40px; height: 40px;
+    border-left: 1px solid var(--rule); border-bottom: 1px solid var(--rule); opacity: 0.5;
+  }
+
+  /* === CONTACT === */
+  .contact-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .contact-info h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
+    font-weight: 500; margin-bottom: 1.5rem; color: var(--ink); font-style: italic;
+  }
+  .contact-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.2rem; }
+  .contact-icon {
+    width: 36px; height: 36px; border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .contact-icon svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+  .contact-detail .label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-faint); font-weight: 500; margin-bottom: 0.15rem;
+  }
+  .contact-detail .value { font-size: 0.95rem; color: var(--ink-light); }
+  .contact-detail a { color: var(--accent); text-decoration: none; }
+  .contact-detail a:hover { text-decoration: underline; }
+  .cv-button {
+    display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem;
+    padding: 0.8rem 1.8rem; background: var(--ink); color: var(--ivory);
+    text-decoration: none; font-size: 0.85rem; letter-spacing: 0.06em;
+    text-transform: uppercase; font-weight: 500; transition: background 0.25s, transform 0.2s;
+  }
+  .cv-button:hover { background: var(--accent); transform: translateY(-1px); }
+  .cv-button svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  .contact-map {
+    background: var(--parchment); border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 260px; position: relative; overflow: hidden;
+  }
+  .contact-map .map-placeholder {
+    text-align: center; color: var(--ink-faint); font-size: 0.85rem; font-style: italic;
+  }
+  .contact-map .map-placeholder svg { margin-bottom: 0.5rem; opacity: 0.3; }
+
+  /* === FOOTER === */
+  footer {
+    max-width: 960px; margin: 0 auto; padding: 3rem 2rem;
+    border-top: 1px solid var(--rule); display: flex; justify-content: space-between;
+    align-items: center; font-size: 0.82rem; color: var(--ink-faint);
+  }
+  footer a { color: var(--ink-faint); text-decoration: none; margin-left: 1.2rem; }
+  footer a:hover { color: var(--accent); }
+
+  /* === ANIMATIONS === */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-in {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .animate-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* === MOBILE === */
+  .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+  .mobile-toggle span { display: block; width: 22px; height: 1.5px; background: var(--ink); margin: 5px 0; transition: 0.3s; }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; gap: 2rem; padding-top: 7rem; }
+    .hero-photo { width: 200px; height: 240px; margin: 0 auto; }
+    .hero-text h1 { font-size: 2.2rem; }
+    .metrics-inner { flex-wrap: wrap; gap: 1rem; justify-content: center; padding: 1.2rem 1rem; }
+    .metric-divider { display: none; }
+    .about-content { grid-template-columns: 1fr; }
+    .research-grid { grid-template-columns: 1fr; }
+    .contact-content { grid-template-columns: 1fr; }
+    .nav-links {
+      display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--ivory); border-bottom: 1px solid var(--rule); padding: 1rem 2rem; gap: 1rem;
+    }
+    .nav-links.open { display: flex; }
+    .mobile-toggle { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-name">D. Nagahawatta</a>
+    <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-text">
+    <h1>Dineth Nagahawatta, PhD</h1>
+    <div class="field">Biochemistry · Molecular &amp; Cell Biology · Immunology</div>
+    <div class="affiliation">
+      Postdoctoral Researcher<br>
+      Department of Medicine, University of Alberta<br>
+      Edmonton, AB, Canada
+    </div>
+    <p class="tagline">
+      Investigating how bioactive molecules modulate cell signaling pathways across inflammation,
+      cardiovascular remodeling, and host–pathogen interactions — bridging in silico prediction,
+      in vitro validation, and in vivo disease models.
+    </p>
+  </div>
+  <div class="hero-photo">
+    <div class="placeholder-icon">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- METRICS -->
+<div class="metrics-bar">
+  <div class="metrics-inner">
+    <div class="metric">
+      <div class="number">1,074</div>
+      <div class="label">Citations</div>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric">
+      <div class="number">19</div>
+      <div class="label">H-index</div>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric">
+      <div class="number">66</div>
+      <div class="label">Publications</div>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric">
+      <div class="number">4</div>
+      <div class="label">Book Chapters</div>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric">
+      <div class="number">1</div>
+      <div class="label">Patent</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="divider"><hr></div>
+<section id="about">
+  <div class="section-header animate-in">
+    <span class="numeral">I.</span>
+    <h2>About</h2>
+    <div class="line"></div>
+  </div>
+  <div class="about-content animate-in">
+    <div class="about-bio">
+      <p>My research focuses on how bioactive molecules — including peptides, polysaccharides, and polyphenolic compounds — modulate cell signaling pathways across diverse disease-relevant contexts such as inflammation, cardiovascular remodeling, sarcopenia, host–pathogen interactions, and metabolic dysfunction. I integrate in silico approaches (molecular docking, structure–activity modeling), in vitro cell-based systems, and in vivo animal models (mouse and zebrafish) to investigate biological mechanisms from target prediction through to functional validation.</p>
+      <p>My current postdoctoral work at the University of Alberta extends this foundation into cardiovascular biology, where I investigate neprilysin-mediated cardioprotective signaling using global and conditional knockout mouse models, primary cell isolation via Langendorff perfusion, flow cytometry-based immune phenotyping, and biomarker analysis in post-myocardial infarction remodeling.</p>
+      <p>Previously, I served as a postdoctoral researcher at Jeju National University, South Korea, where I led studies on innate immune signaling, antiviral mechanisms targeting SARS-CoV-2, and bioactivity-guided isolation of marine-derived compounds. During this period, I contributed to over 30 publications and mentored 3 PhD-level trainees.</p>
+    </div>
+    <div class="about-sidebar">
+      <h3>Research Interests</h3>
+      <ul>
+        <li>Cardiovascular biology &amp; remodeling</li>
+        <li>Neprilysin &amp; apelinergic signaling</li>
+        <li>Innate immunity &amp; inflammation</li>
+        <li>Bioactive peptides &amp; polysaccharides</li>
+        <li>Host–pathogen interactions</li>
+        <li>Translational disease modeling</li>
+      </ul>
+      <h3>Education</h3>
+      <ul>
+        <li>Ph.D., Marine Life Science — Jeju National University</li>
+        <li>M.Sc., Marine Life Science — Jeju National University</li>
+        <li>B.Sc., Biotechnology — Wayamba University of Sri Lanka</li>
+      </ul>
+      <h3>Selected Awards</h3>
+      <ul>
+        <li>President's Award for Best Researcher (2023)</li>
+        <li>Brain Korea Honored Award (2022, 2023)</li>
+        <li>Dean's Award for Excellent Research, M.Sc. (2021)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<div class="divider"><hr></div>
+<section id="publications">
+  <div class="section-header animate-in">
+    <span class="numeral">II.</span>
+    <h2>Selected Publications</h2>
+    <div class="line"></div>
+  </div>
+  <ul class="pub-list animate-in">
+    <li class="pub-item">
+      <div class="pub-year">2026</div>
+      <div class="pub-details">
+        <h4>Therapeutic opportunities targeting the ACE-2/Ang-(1–7)/MasR pathway in cardiometabolic disease</h4>
+        <div class="pub-authors">Jayawardena TU, <strong>Nagahawatta DP</strong>, Grant MB, Chappell MC, Oudit GY</div>
+        <div class="pub-journal">Current Hypertension Reports, 28:18</div>
+        <div class="pub-tags"><span class="pub-tag">Cardiovascular</span><span class="pub-tag">ACE-2</span></div>
+      </div>
+    </li>
+    <li class="pub-item">
+      <div class="pub-year">2026</div>
+      <div class="pub-details">
+        <h4>Screening apelin analogues and a small molecule agonist as effective cardiovascular therapeutics against reperfusion injury</h4>
+        <div class="pub-authors">Wijewardane A, Fernandez KX, Zhang A, Fischer C, <strong>Nagahawatta DP</strong>, et al.</div>
+        <div class="pub-journal">RSC Medicinal Chemistry, 17:236–244</div>
+        <div class="pub-tags"><span class="pub-tag">Apelin</span><span class="pub-tag">Therapeutics</span></div>
+      </div>
+    </li>
+    <li class="pub-item">
+      <div class="pub-year">2023</div>
+      <div class="pub-details">
+        <h4>Alginic acid from Ecklonia maxima stipe attenuates pro-inflammatory responses on particulate matter-induced lung macrophages</h4>
+        <div class="pub-authors"><strong>Nagahawatta DP</strong>, Lee H-G, Liyanage NM, Jayawardhana HHACK, et al.</div>
+        <div class="pub-journal">Journal of Functional Foods, 104:105539</div>
+        <div class="pub-tags"><span class="pub-tag">Inflammation</span><span class="pub-tag">Marine Bioactives</span></div>
+      </div>
+    </li>
+    <li class="pub-item">
+      <div class="pub-year">2023</div>
+      <div class="pub-details">
+        <h4>Antioxidant potential of hydrolysate-derived seahorse peptide: protective effects against AAPH-induced oxidative damage in vitro and in vivo</h4>
+        <div class="pub-authors">Lee H-G, <strong>Nagahawatta DP</strong>, Yang F, Jayawardhana HHACK, et al.</div>
+        <div class="pub-journal">Food Chemistry, 407:135130</div>
+        <div class="pub-tags"><span class="pub-tag">Antioxidant</span><span class="pub-tag">Peptides</span></div>
+      </div>
+    </li>
+    <li class="pub-item">
+      <div class="pub-year">2022</div>
+      <div class="pub-details">
+        <h4>Polyphenolic compounds from marine algae attenuate SARS-CoV-2 replication via multi-target approach of 3CLpro and PLpro</h4>
+        <div class="pub-authors"><strong>Nagahawatta DP</strong>, Liyanage NM, Je J-G, Jayawardhana HHACK, et al.</div>
+        <div class="pub-journal">Marine Drugs, 20(12):786</div>
+        <div class="pub-tags"><span class="pub-tag">Antiviral</span><span class="pub-tag">SARS-CoV-2</span></div>
+      </div>
+    </li>
+    <li class="pub-item">
+      <div class="pub-year">2022</div>
+      <div class="pub-details">
+        <h4>Sargachromenol from Sargassum horneri inhibits particulate matter-induced inflammation via toll-like receptor-mediated signaling</h4>
+        <div class="pub-authors"><strong>Nagahawatta DP</strong>, Kim H-S, Jee Y-H, Jayawardena TU, et al.</div>
+        <div class="pub-journal">Marine Drugs, 20(1):28</div>
+        <div class="pub-tags"><span class="pub-tag">TLR Signaling</span><span class="pub-tag">Anti-inflammatory</span></div>
+      </div>
+    </li>
+  </ul>
+  <div class="pub-note">
+    Showing 6 of 66 peer-reviewed publications · <a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank">View all on Google Scholar</a>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<div class="divider"><hr></div>
+<section id="research">
+  <div class="section-header animate-in">
+    <span class="numeral">III.</span>
+    <h2>Research Projects</h2>
+    <div class="line"></div>
+  </div>
+  <div class="research-grid animate-in">
+    <div class="research-card">
+      <div class="corner-ornament"></div>
+      <span class="status active">Current</span>
+      <h4>Neprilysin-Mediated Cardioprotective Signaling</h4>
+      <p>Investigating the role of neprilysin across cardiac and immune cell populations using global and cell-specific conditional knockout mouse models to characterize how targeted NEP loss influences post-myocardial infarction remodeling outcomes.</p>
+      <div class="funding">University of Alberta · Department of Medicine</div>
+    </div>
+    <div class="research-card">
+      <div class="corner-ornament"></div>
+      <span class="status active">Current</span>
+      <h4>Apelinergic Signaling &amp; Peptide Therapeutics</h4>
+      <p>Evaluating pharmacologic modulation of cardioprotective apelinergic signaling using sacubitril/valsartan and a newly synthesized NEP-resistant apelin-17 analogue as a peptide-based therapeutic strategy.</p>
+      <div class="funding">Published in RSC Medicinal Chemistry, 2026</div>
+    </div>
+    <div class="research-card">
+      <div class="corner-ornament"></div>
+      <span class="status completed">Completed</span>
+      <h4>Marine Antivirals Against SARS-CoV-2</h4>
+      <p>Multi-target approach using marine polyphenolic compounds to attenuate SARS-CoV-2 cell entry, replication, and cytokine storm — from molecular docking through cell-based antiviral assays and pseudoviral systems.</p>
+      <div class="funding">Ph.D. Thesis · President's Award for Best Research</div>
+    </div>
+    <div class="research-card">
+      <div class="corner-ornament"></div>
+      <span class="status completed">Completed</span>
+      <h4>Bioactive Marine Compounds in Inflammation &amp; Metabolism</h4>
+      <p>Investigated peptides, polysaccharides, and polyphenolics from marine sources against inflammatory, metabolic, and musculoskeletal disease endpoints including pulmonary inflammation, lipid accumulation, and muscle atrophy models.</p>
+      <div class="funding">Jeju National University · 30+ publications</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="divider"><hr></div>
+<section id="contact">
+  <div class="section-header animate-in">
+    <span class="numeral">IV.</span>
+    <h2>Contact</h2>
+    <div class="line"></div>
+  </div>
+  <div class="contact-content animate-in">
+    <div class="contact-info">
+      <h3>Get in touch</h3>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+        </div>
+        <div class="contact-detail">
+          <div class="label">Email</div>
+          <div class="value"><a href="mailto:dnagahaw@ualberta.ca">dnagahaw@ualberta.ca</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="contact-detail">
+          <div class="label">Office</div>
+          <div class="value">Department of Medicine<br>University of Alberta, Edmonton, AB T6G 2B7</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 5.09 13 19.79 19.79 0 0 1 2 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81A2 2 0 0 1 9.18 9l-1.28 1.28a16 16 0 0 0 6 6L15.18 15a2 2 0 0 1 2.48-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="contact-detail">
+          <div class="label">Phone</div>
+          <div class="value">(780) 964-5027</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        </div>
+        <div class="contact-detail">
+          <div class="label">ORCID</div>
+          <div class="value"><a href="https://orcid.org/0000-0002-9603-4904" target="_blank">0000-0002-9603-4904</a></div>
+        </div>
+      </div>
+      <a href="#" class="cv-button">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download CV
+      </a>
+    </div>
+    <div class="contact-map">
+      <div class="map-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        <div>University of Alberta<br>Edmonton, AB, Canada</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>&copy; 2026 Dineth Nagahawatta, PhD</span>
+  <div>
+    <a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank">Google Scholar</a>
+    <a href="https://orcid.org/0000-0002-9603-4904" target="_blank">ORCID</a>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
+  });
+</script>
+</body>
+</html>
